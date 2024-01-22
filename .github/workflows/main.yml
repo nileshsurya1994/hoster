@@ -20,7 +20,7 @@ jobs:
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: ec2-52-55-149-203.compute-1.amazonaws.com
+          host: 52.55.149.203
           username: ubuntu
           password: redhat
           port: 22
