@@ -8,26 +8,27 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-  
-
-      - name: Executing remote ssh commands using ssh key
-        uses: appleboy/ssh-action@master
-        with:
-          host: 52.55.149.203
-          username: ubuntu
-          password: redhat
-          port: 22
-          script: |
-            sudo apt-get -y update
-            sudo apt-get install -y apache2
-            sudo systemctl start apache2
-            sudo systemctl enable apache2
-            cd home
-            sudo mv * /var/www/html
+    - name: Run SSH command
+      uses: appleboy/ssh-action@master
+      with:
+        host: 52.55.149.203
+        username: ubuntu
+        password: redhat
+        port: 22
+        script: |
+          sudo apt-get -y update
+          sudo apt-get install -y apache2
+          sudo systemctl start apache2
+          sudo systemctl enable apache2
+          cd /home
+          sudo mv * /var/www/html
+        timeout: 30s
+        command_timeout: 10m
+        proxy_port: 22
+        proxy_timeout: 30s
