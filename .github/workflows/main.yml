@@ -20,21 +20,21 @@ jobs:
     - name: Copy SSH key to remote server
       uses: appleboy/scp-action@master
       with:
-        host: 52.55.149.203
-        username: ubuntu
-        password: redhat
-        source: $HOME/.ssh/id_rsa.pub
-        target: /home/ubuntu/.ssh/authorized_keys
-        port: 22
-        timeout: 30s
-        command_timeout: 10m
-        use_insecure_cipher: false
-        rm: false
-        debug: false
-        strip_components: 0
-        overwrite: false
-        tar_dereference: false
-        tar_exec: tar
-        proxy_port: 22
-        proxy_timeout: 30s
-        proxy_use_insecure_cipher: false
+  host: 52.55.149.203
+  username: ubuntu
+  password: redhat
+  source: /github/home/.ssh/id_rsa.pub
+  target: /home/ubuntu/.ssh/authorized_keys
+  port: 22
+  timeout: 30s
+  command_timeout: 10m
+  use_insecure_cipher: false
+  rm: false
+  debug: false
+  strip_components: 0
+  overwrite: false
+  tar_dereference: false
+  tar_exec: tar
+  proxy_port: 22
+  proxy_timeout: 30s
+  proxy_use_insecure_cipher: false
