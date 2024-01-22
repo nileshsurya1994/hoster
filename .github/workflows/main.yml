@@ -20,9 +20,9 @@ jobs:
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST_DNS }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
+          host: ec2-52-55-149-203.compute-1.amazonaws.com
+          username: ubuntu
+          password: redhat
           port: 22
           script: |
             sudo apt-get -y update
