@@ -9,32 +9,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-    - name: Create SSH key
-      run: |
-        ssh-keygen -t rsa -b 4096 -f $HOME/.ssh/id_rsa -N ""
-        sleep 5  # Add a delay of 5 seconds to allow the key to be generated
-
-    - name: Copy SSH key to remote server
-      uses: appleboy/scp-action@master
-      with:
-  host: 52.55.149.203
-  username: ubuntu
-  password: redhat
-  source: /github/home/.ssh/id_rsa.pub
-  target: /home/ubuntu/.ssh/authorized_keys
-  port: 22
-  timeout: 30s
-  command_timeout: 10m
-  use_insecure_cipher: false
-  rm: false
-  debug: false
-  strip_components: 0
-  overwrite: false
-  tar_dereference: false
-  tar_exec: tar
-  proxy_port: 22
-  proxy_timeout: 30s
-  proxy_use_insecure_cipher: false
+      - name: Copy SSH Public Key
+        uses: appleboy/scp-action@master
+        with:
+          host: 52.55.149.203
+          username: ubuntu
+          password: redhat
+          source: ${{ github.workspace }}/.ssh/id_rsa.pub
+          target: /home/ubuntu/.ssh/authorized_keys
+          port: 22
+          timeout: 30s
+          command_timeout: 10m
+          use_insecure_cipher: false
+          rm: false
+          debug: true
+          strip_components: 0
+          overwrite: false
+          tar_dereference: false
+          tar_exec: tar
+          proxy_port: 22
+          proxy_timeout: 30s
+          proxy_use_insecure_cipher: false
