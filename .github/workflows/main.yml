@@ -3,33 +3,22 @@ on:
   push:
     branches:
       - main
-
+ 
 jobs:
-  deploy:
+  hello_world:
     runs-on: ubuntu-latest
-
+ 
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Copy SSH Public Key
-        uses: appleboy/scp-action@master
-        with:
-          host: 52.55.149.203
-          username: ubuntu
-          password: redhat
-          source: ${{ github.workspace }}/.ssh/id_rsa.pub
-          target: /home/ubuntu/.ssh/authorized_keys
-          port: 22
-          timeout: 30s
-          command_timeout: 10m
-          use_insecure_cipher: false
-          rm: false
-          debug: true
-          strip_components: 0
-          overwrite: false
-          tar_dereference: false
-          tar_exec: tar
-          proxy_port: 22
-          proxy_timeout: 30s
-          proxy_use_insecure_cipher: false
+ 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+ 
+      - name: Print Hello World
+        run: echo "Hello, World!"
