@@ -20,5 +20,13 @@ jobs:
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
  
-      - name: Print Hello World
-        run: echo "Hello, World!"
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          script: |
+            sudo apt-get -y update
+            sudo apt-get install -y apache2
+            sudo systemctl start apache2
+            sudo systemctl enable apache2
+            cd home
+            sudo mv * /var/www/html
