@@ -1,37 +1,19 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout your source code repository
-                git 'https://github.com/your/repository.git'
-            }
-        }
-        
-        stage('Clean') {
-            steps {
-                // Clean your workspace (optional)
-                cleanWs()
-                
-                // Run any clean-up commands if necessary
-                sh 'mvn clean' // For example, if your project is Maven-based
-            }
-        }
-        
         stage('Build') {
             steps {
-                // Build your project
-                sh 'mvn package' // Assuming Maven build, adjust as needed
+                sh 'echo "Building..."'
             }
         }
-        
+        stage('Test') {
+            steps {
+                sh 'echo "Testing..."'
+            }
+        }
         stage('Deploy') {
             steps {
-                // Deploy your application
-                // Add your deployment commands here
-                // For example, deploying to a server or container
-                sh 'docker-compose up -d' // Example for deploying with Docker
+                sh 'echo "Deploying..."'
             }
         }
     }
